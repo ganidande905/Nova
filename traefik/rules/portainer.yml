@@ -1,0 +1,20 @@
+http:
+  routers:
+    portainer-http:
+      rule: "Host(`portainer.dandelab.tech`) || Host(`www.portainer.dandelab.tech`)"
+      entryPoints: ["web"]
+      middlewares: ["redirect-to-https"]
+      service: portainer-svc
+
+    portainer:
+      rule: "Host(`portainer.dandelab.tech`) || Host(`www.portainer.dandelab.tech`)"
+      entryPoints: ["websecure"]
+      tls:
+        certResolver: le
+      service: portainer-svc
+
+  services:
+    portainer-svc:
+      loadBalancer:
+        servers:
+          - url: "http://portainer:9000"
