@@ -1,0 +1,15 @@
+http:
+  routers:
+    traefik-http:
+      rule: "Host(`traefik.dandelab.tech`)"
+      entryPoints: ["web"]
+      middlewares: ["redirect-to-https"]
+      service: api@internal
+
+    traefik:
+      rule: "Host(`traefik.dandelab.tech`)"
+      entryPoints: ["websecure"]
+      middlewares: ["dashboard-auth"]
+      tls:
+        certResolver: le
+      service: api@internal

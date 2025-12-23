@@ -1,0 +1,20 @@
+http:
+  routers:
+    skillapi-http:
+      rule: "Host(`skillapi.dandelab.tech`) || Host(`www.skillapi.dandelab.tech`)"
+      entryPoints: ["web"]
+      middlewares: ["redirect-to-https"]
+      service: skillapi-svc
+
+    skillapi:
+      rule: "Host(`skillapi.dandelab.tech`) || Host(`www.skillapi.dandelab.tech`)"
+      entryPoints: ["websecure"]
+      tls:
+        certResolver: le
+      service: skillapi-svc
+
+  services:
+    skillapi-svc:
+      loadBalancer:
+        servers:
+          - url: "http://skillsync-backend:8000"

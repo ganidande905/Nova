@@ -1,0 +1,20 @@
+http:
+  routers:
+    vision-http:
+      rule: "Host(`ganidande.com`) || Host(`www.ganidande.com`)"
+      entryPoints: ["web"]
+      middlewares: ["redirect-to-https"]
+      service: vision-svc
+
+    vision:
+      rule: "Host(`ganidande.com`) || Host(`www.ganidande.com`)"
+      entryPoints: ["websecure"]
+      tls:
+        certResolver: le
+      service: vision-svc
+
+  services:
+    vision-svc:
+      loadBalancer:
+        servers:
+          - url: "http://vision:80"

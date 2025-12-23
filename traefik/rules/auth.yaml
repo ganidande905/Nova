@@ -1,0 +1,5 @@
+http:
+  middlewares:
+    dashboard-auth:
+      basicAuth:
+        usersFile: /secrets/traefik-users.htpasswd
