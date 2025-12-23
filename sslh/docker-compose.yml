@@ -1,0 +1,14 @@
+services:
+  sslh:
+    image: ghcr.io/yrutschle/sslh:latest
+    container_name: sslh
+    restart: unless-stopped
+    ports:
+      - "443:443"
+    command: >
+      --foreground
+      --listen=0.0.0.0:443
+      --ssh=host.docker.internal:22
+      --tls=host.docker.internal:8443
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

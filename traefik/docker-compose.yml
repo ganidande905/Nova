@@ -13,7 +13,7 @@ services:
       - --configFile=/etc/traefik/traefik.yml
     ports:
       - "80:80"
-      - "443:443"
+      - "8443:443"
     networks:
       - proxy
     volumes:
