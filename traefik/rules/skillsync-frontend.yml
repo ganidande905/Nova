@@ -1,0 +1,20 @@
+http:
+  routers:
+    skillsync-http:
+      rule: "Host(`skillsync.dandelab.tech`) || Host(`www.skillsync.dandelab.tech`)"
+      entryPoints: ["web"]
+      middlewares: ["redirect-to-https"]
+      service: skillsync-svc
+
+    skillsync:
+      rule: "Host(`skillsync.dandelab.tech`) || Host(`www.skillsync.dandelab.tech`)"
+      entryPoints: ["websecure"]
+      tls:
+        certResolver: le
+      service: skillsync-svc
+
+  services:
+    skillsync-svc:
+      loadBalancer:
+        servers:
+          - url: "http://skillsync:80"
