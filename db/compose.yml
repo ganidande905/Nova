@@ -7,11 +7,25 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+
+    command:
+      - postgres
+      - -c
+      - shared_buffers=128MB
+      - -c
+      - work_mem=4MB
+      - -c
+      - maintenance_work_mem=64MB
+      - -c
+      - effective_cache_size=256MB
+
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init:/docker-entrypoint-initdb.d:ro
+
     networks:
       - proxy
+
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER}"]
       interval: 10s
