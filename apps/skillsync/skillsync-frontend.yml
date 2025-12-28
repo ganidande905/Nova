@@ -1,6 +1,6 @@
 version: "3.9"
 services:
-  vision:
+  skillsync:
     image: ghcr.io/ganidande905/skillsync:${TAG:-latest}
     container_name: skillsync
     restart: unless-stopped
