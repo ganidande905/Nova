@@ -1,0 +1,20 @@
+http:
+  routers:
+    echo-http:
+      rule: "Host(`blog.ganidande.com`) || Host(`www.blog.ganidande.com`)"
+      entryPoints: ["web"]
+      middlewares: ["redirect-to-https"]
+      service: echo-svc
+
+    echo:
+      rule: "Host(`blog.ganidande.com`) || Host(`www.blog.ganidande.com`)"
+      entryPoints: ["websecure"]
+      tls:
+        certResolver: le
+      service: echo-svc
+
+  services:
+    echo-svc:
+      loadBalancer:
+        servers:
+          - url: "http://echo:80"

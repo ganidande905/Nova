@@ -1,0 +1,11 @@
+services:
+  echo:
+    image: ghcr.io/ganidande905/echo:${TAG:-latest}
+    container_name: echo
+    restart: unless-stopped
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
