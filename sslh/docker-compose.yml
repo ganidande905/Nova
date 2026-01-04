@@ -10,4 +10,5 @@ services:
       --listen=0.0.0.0:443
       --ssh=host.docker.internal:22
       --tls=host.docker.internal:8443
+    extra_hosts:
       - "host.docker.internal:host-gateway"
