@@ -1,0 +1,20 @@
+http:
+  routers:
+    monitor-http:
+      rule: "Host(`monitor.dandelab.tech`) || Host(`www.monitor.dandelab.tech`)"
+      entryPoints: ["web"]
+      middlewares: ["redirect-to-https"]
+      service: monitor-svc
+
+    monitor:
+      rule: "Host(`monitor.dandelab.tech`) || Host(`www.monitor.dandelab.tech`)"
+      entryPoints: ["websecure"]
+      tls:
+        certResolver: le
+      service: monitor-svc
+
+  services:
+    monitor-svc:
+      loadBalancer:
+        servers:
+          - url: "http://uptime-kuma:3001"
