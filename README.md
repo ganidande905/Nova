@@ -66,3 +66,14 @@ sudo swapon /swapfile
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 
 ```
+
+### to self host penpot 
+```
+https://help.penpot.app/technical-guide/getting-started/docker/
+```
+Make sure to include the network you made which is proxy in this  , then only the containers traefik and this could communicate 
+and dont expose ports except 8080
+make sure to add the secret key and smtp password
+without secret key the application doesn't load , it has been said in one of their pr 
+Mentioning all this because the once you pull the docker-compose file , there is gonna be alot of out dated stuff which you have to deal with 
+
