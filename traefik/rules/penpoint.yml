@@ -1,0 +1,20 @@
+http:
+  routers:
+    penpot-http:
+      rule: "Host(`penpot.dandelab.tech`) || Host(`www.penpot.dandelab.tech`)"
+      entryPoints: ["web"]
+      middlewares: ["redirect-to-https"]
+      service: penpot-svc
+
+    penpot:
+      rule: "Host(`penpot.dandelab.tech`) || Host(`www.penpot.dandelab.tech`)"
+      entryPoints: ["websecure"]
+      tls:
+        certResolver: le
+      service: penpot-svc
+
+  services:
+    penpot-svc:
+      loadBalancer:
+        servers:
+          - url: "http://penpot-frontend:8080"
