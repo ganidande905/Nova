@@ -1,0 +1,20 @@
+http:
+  routers:
+    cloudbeaver-http:
+      rule: "Host(`db.dandelab.tech`) || Host(`www.db.dandelab.tech`)"
+      entryPoints: ["web"]
+      middlewares: ["redirect-to-https"]
+      service: cloudbeaver-svc
+
+    cloudbeaver:
+      rule: "Host(`db.dandelab.tech`) || Host(`www.db.dandelab.tech`)"
+      entryPoints: ["websecure"]
+      tls:
+        certResolver: le
+      service: cloudbeaver-svc
+
+  services:
+    cloudbeaver-svc:
+      loadBalancer:
+        servers:
+          - url: "http://cloudbeaver:8978"
