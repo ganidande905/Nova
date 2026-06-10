@@ -1,0 +1,12 @@
+services:
+  alpa:
+    image: ghcr.io/ganidande905/alpa:${TAG:-latest}
+    container_name: alpa
+    restart: unless-stopped
+    networks:
+      - proxy
+  networks:
+    proxy:
+      external: true
+      
+    
